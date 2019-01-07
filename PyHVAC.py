@@ -7,10 +7,10 @@ import matplotlib
 matplotlib.use('TkAgg')
 import matplotlib.pyplot as pltlib
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
-import Tkinter as Tk
+import tkinter as Tk
 from matplotlib.figure import Figure
-import Tkinter
-from Tkinter import *
+import tkinter
+from tkinter import *
 import scipy as sc
 
 class variables:
@@ -226,7 +226,7 @@ class PID:
     def getInt(self):
         if self.prop!=self.prop_max and self.prop!=self.prop_min:
             self.sumError+=(self.TRoom-self.setPoint)
-        print self.sumError
+        print (self.sumError)
         return self.Ki*self.sumError
     def getDiff(self):
         error=(self.TRoom-self.setPoint)
@@ -387,8 +387,8 @@ class heuristic:
             self.avgAir=self.air/self.i
             self.avgAirDiff=self.prevAvgAir-self.avgAir
             self.prevAvgAir=self.avgAir
-            print 'Difference in air volume: ',self.avgAirDiff 
-            print riseTime
+            print ('Difference in air volume: ',self.avgAirDiff)
+            print (riseTime)
             return riseTime/50.0+self.avgAirDiff/5
         return 0
     def reset(self):
@@ -414,9 +414,9 @@ class curveFit:
       
 ################  Graphical User Interface     ############
 
-class App_Window(Tkinter.Tk):
+class App_Window(tkinter.Tk):
     def __init__(self,parent):
-        Tkinter.Tk.__init__(self,parent)
+        tkinter.Tk.__init__(self,parent)
         self.parent=parent
         self.initialize()
     def initialize(self):
@@ -444,29 +444,29 @@ class App_Window(Tkinter.Tk):
         self.dampLabel.pack(anchor='w')       
         self.config(padx=20, pady=20)
 
-        button=Tkinter.Button(self, text="Start Process \n Submit SetPoint", command=self.OnStartClick).grid(column=0,row=2)
+        button=tkinter.Button(self, text="Start Process \n Submit SetPoint", command=self.OnStartClick).grid(column=0,row=2)
 
-        button2=Tkinter.Button(self, text="Start Relay Tune",command=self.startRelayTune).grid(column=0,row=5)
+        button2=tkinter.Button(self, text="Start Relay Tune",command=self.startRelayTune).grid(column=0,row=5)
 
-        closeButton=Tkinter.Button(self, text="Close Window", command=self.close_window).grid(column=0,row=6)
+        closeButton=tkinter.Button(self, text="Close Window", command=self.close_window).grid(column=0,row=6)
 
         Label(box1,text="Enter Set Point").pack()
         #self.model.setbulbWattage(200)
-        buttonBulbRise=Tkinter.Button(master=box3, text="Increase bulb", command=self.incrementBulb)
+        buttonBulbRise=tkinter.Button(master=box3, text="Increase bulb", command=self.incrementBulb)
         buttonBulbRise.grid(column=0, row=0,padx=2,pady=2)
-        buttonBulbFall=Tkinter.Button(master=box3, text="Decrease bulb", command=self.decrementBulb)
+        buttonBulbFall=tkinter.Button(master=box3, text="Decrease bulb", command=self.decrementBulb)
         buttonBulbFall.grid(column=1, row=0,padx=2,pady=2)
         self.bulbNumberLabel=Label(master=box3, text='No of Bulbs= %d' %self.model.var.numberOfBulbs)
         self.bulbNumberLabel.grid(column=2,row=0,padx=2,pady=2)
-        buttonHumanRise=Tkinter.Button(master=box3, text="Increase human", command=self.incrementHuman)
+        buttonHumanRise=tkinter.Button(master=box3, text="Increase human", command=self.incrementHuman)
         buttonHumanRise.grid(column=0, row=1,padx=2,pady=2)
-        buttonHumanFall=Tkinter.Button(master=box3, text="Decrease human", command=self.decrementHuman)
+        buttonHumanFall=tkinter.Button(master=box3, text="Decrease human", command=self.decrementHuman)
         buttonHumanFall.grid(column=1, row=1,padx=2,pady=2)
         self.humanNumberLabel=Label(master=box3, text='No of Humans= %d' %self.model.var.numberOfHumans)
         self.humanNumberLabel.grid(column=2,row=1,padx=2,pady=2)
-        self.entryVariable=Tkinter.DoubleVar()
+        self.entryVariable=tkinter.DoubleVar()
 
-        self.entry=Tkinter.Entry(box1,textvariable=self.entryVariable)
+        self.entry=tkinter.Entry(box1,textvariable=self.entryVariable)
 
         self.entry.pack()
   
@@ -564,7 +564,7 @@ class App_Window(Tkinter.Tk):
         else: 
             self.autoTuningStatus=False
             self.pid.setSetPoint(self.entryVariable.get())
-            print "Ku= ", self.ATR.ku," |  Pu= ", self.ATR.pu
+            print ("Ku= ", self.ATR.ku," |  Pu= ", self.ATR.pu)
             self.pid.setKu(self.ATR.ku)
             self.pid.setPu(self.ATR.pu) 
             self.pid.sumError=0
