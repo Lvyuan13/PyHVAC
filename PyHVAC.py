@@ -23,7 +23,9 @@ class variables:
         self.transCoeff=[0.1/.02,4]
         self.TRoom=32
         self.TIn=32
+        #why set T=32
         self.inletSpeed=10
+        #what speed
         self.stefanBoltzmann=5.670373*(10**(-8))
         self.emissivity=0.4
         self.tungstenArea=3*(10**(-5))
@@ -39,8 +41,8 @@ class variables:
         self.recalculate()
 
     def recalculate(self):
-        self.boxAirMass=self.airDensity*(self.side**3)
-        self.area=self.side**2
+        self.boxAirMass=self.airDensity*(self.side**3)#mass of air
+        self.area=self.side**2 #area
         self.specMassAir=self.boxAirMass*self.cAir*1000
         self.massPerSecond=self.sample*(math.pi*self.diameter*self.diameter/4)*self.inletSpeed*self.airDensity*(self.percentOpen/100)
         self.plywoodCMass=(self.area)*(2/100.0)*545*1215*5.2*0.2
@@ -102,7 +104,7 @@ class variables:
 ##################################
 class model:
     def __init__(self):
-        self.var=variables()
+        self.var=variables() #self.var is a class
         self.allTemps=[]
         self.i=0
         
